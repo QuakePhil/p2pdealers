@@ -28,4 +28,6 @@ function ui() {
 
   // hood
   hood();
+
+  dge('message').focus();
 }
