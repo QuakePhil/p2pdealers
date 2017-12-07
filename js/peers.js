@@ -20,6 +20,7 @@ function startPeers() {
   window.crypto.getRandomValues(array);
   raiding = 0;
   gang.id = array[0];
+  gang.id = String(gang.id).substring(0,5);
   gang.cash = 420;
   if (gang.name == '') gang.name = gangname();
   gang.colors = dge('colors').value;
