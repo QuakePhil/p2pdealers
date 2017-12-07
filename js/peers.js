@@ -9,8 +9,8 @@ function send(what) {
 }
 
 function outro() {
-  document.getElementById('connectButton').disabled = true;
-  document.getElementById('intro').style.display = 'none';
+  dge('connectButton').disabled = true;
+  dge('intro').style.display = 'none';
 
   ui();
 }
@@ -22,7 +22,7 @@ function startPeers() {
   gang.id = array[0];
   gang.cash = 420;
   if (gang.name == '') gang.name = gangname();
-  gang.colors = document.getElementById('colors').value;
+  gang.colors = dge('colors').value;
   console.log('starting with:', gang);
   h.open(gang.id);
   gangs.push(gang);
@@ -35,7 +35,7 @@ function connectPeers() {
   raiding = 1;
   gang.cash = 420;
   if (gang.name == '') gang.name = gangname();
-  gang.colors = document.getElementById('colors').value;
+  gang.colors = dge('colors').value;
   console.log('raiding with:', gang);
   h.connect(gang.id);
   gangs.push(gang);
@@ -76,7 +76,7 @@ h.onmessage = function(message, user) {
     console.log('set info for user', user, ' to ', spec[1]);
   }
   if (spec[0] == 'say') {
-    document.getElementById('chat').value += spec[1];
+    dge('chat').value += spec[1];
     backlog += spec[1];
   }
   if (spec[0] == 'hood') {

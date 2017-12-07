@@ -2,15 +2,16 @@ var backlog = 'Welcome to O.G. Chat 1.0\n';
 
 function sendchat(blah) {
   blah = blah + '\n';
-  document.getElementById('chat').value += blah;
+  dge('chat').value += blah;
   backlog += blah;
   send('say|' + blah);
 }
 
 function blahblah() {
-  let blah = gang.name + ': ' + document.getElementById('message').value;
+  let message = dge('message').value;
+  let blah = gang.name + ': ' + message;
   sendchat(blah);
-  document.getElementById('message').value = '';
+  dge('message').value = '';
 }
 
 function chat() {

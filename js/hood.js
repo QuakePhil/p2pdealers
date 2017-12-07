@@ -36,7 +36,7 @@ function hire(apt, e) {
 
 function hood() {
   // hood
-  dom = document.getElementById('hood');
+  dom = dge('hood');
   while (dom.firstChild) { dom.removeChild(dom.firstChild); }
 
   let apt = floors * rooms;
