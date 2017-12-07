@@ -9,8 +9,21 @@ function sendchat(blah) {
 
 function blahblah() {
   let message = dge('message').value;
-  let blah = gang.name + ': ' + message;
-  sendchat(blah);
+  if (message.charAt(0) == '/') {
+    let out = '';
+    if (message == '/reup') {
+      out = reup(200);
+    } else if (message == '/sell') {
+      out = sell();
+    } else {
+      out = '/help - this message\n/reup - purchase $200 worth of product\n/sell - self explanatory\n';
+    }
+    dge('chat').value += out;
+    backlog += out;
+  } else {
+    let blah = gang.name + ': ' + message;
+    sendchat(blah);
+  }
   dge('message').value = '';
 }
 

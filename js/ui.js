@@ -6,7 +6,11 @@ function ui() {
   for (var i = 0; i < gangs.length; ++i) {
     let td = dce('td');
     td.style.background = gangs[i].colors;
-    td.appendChild(dct(gangs[i].name + ' $' + gangs[i].cash));
+    if (gangs[i].product > 0) {
+      td.appendChild(dct(gangs[i].name + ' $' + gangs[i].cash + ' ($' + gangs[i].product + ')'));
+    } else {
+      td.appendChild(dct(gangs[i].name + ' $' + gangs[i].cash));
+    }
     let tr = dce('tr');
     tr.appendChild(td);
     players.appendChild(tr);
