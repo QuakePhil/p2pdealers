@@ -3,11 +3,6 @@
 // send(s), open(id), connect(id), onopen(user), onleave(user), onmessage(s, user)
 var h = new DataChannel();
 
-var gangs = [];
-var id = 0;
-var colors = '';
-var name = '';
-
 function send(what) {
   console.log('sending:', what);
   h.send(what);
@@ -24,11 +19,12 @@ function startPeers() {
   let array = new Uint32Array(1);
   window.crypto.getRandomValues(array);
   id = array[0];
+  cash = 420;
   if (name == '') name = gangname();
   colors = document.getElementById('colors').value;
   console.log('starting with:', id, colors);
   h.open(id);
-  gangs.push({colors: colors, user: 0, name: name});
+  gangs.push({colors: colors, user: 0, name: name, cash: cash});
   outro();
 }
 
@@ -36,18 +32,19 @@ function connectPeers() {
   colors = document.getElementById('colors').value;
   id = prompt('Enter hood id');
   if (!id) return;
+  cash = 420;
   if (name == '') name = gangname();
   console.log('raiding with:', id);
   h.connect(id);
-  gangs.push({colors: colors, user: 0, name: name});
+  gangs.push({colors: colors, user: 0, name: name, cash: cash});
   outro();
 }
 
 h.onopen = function(user) {
   console.log('opened:', user);
-  gangs.push({colors: '', user: user, name: ''});
+  gangs.push({colors: '', user: user, name: '', cash: 0});
   ui();
-  send('info|' + colors + ':' + name);
+  send('info|' + colors + ':' + name + ':' + cash);
 }
 
 h.onleave = function(user) {
@@ -68,6 +65,7 @@ h.onmessage = function(message, user) {
     for (var i in gangs) if(gangs[i].user == user) {
       gangs[i].colors = info[0];
       gangs[i].name = info[1];
+      gangs[i].cash = info[2];
       redraw = true;
     }
     console.log(gangs);

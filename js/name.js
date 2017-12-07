@@ -14,7 +14,7 @@ function updatename() {
     name = newname;
     if (gangs.length > 0) {
       gangs[0].name = name;
-      send('info|'+colors+':'+name);
+      send('info|'+colors+':'+name+':'+cash);
       ui();
     }
   }
