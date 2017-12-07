@@ -27,6 +27,14 @@ function sell() {
     return 'No product to sell\n';
   }
 
+  if (typeof gang.lastsale !== 'undefined') {
+    var wait = Date.now() - gang.lastsale;
+    if (wait < 60000) {
+      var more = Math.floor((60000 - wait) / 1000);
+      return 'Must wait at least a minute until selling again\n(' + more + ' more seconds)\n';
+    }
+  }
+
   var sales = 0;
   var expenses = 0;
   var starting = gang.cash;
@@ -57,6 +65,8 @@ function sell() {
     out = 'Starting with $' + starting + '\nSales: $' + sales + '\nExpenses: $' + expenses + '\nYou went broke\n';
     // all hired goons should then leave
   }
+  gang.lastsale = Date.now();
+
   send('info|' + JSON.stringify(gang));
   ui();
   return out;
