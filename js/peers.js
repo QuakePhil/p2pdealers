@@ -49,7 +49,7 @@ h.onopen = function(user) {
   ui();
   send('info|' + JSON.stringify(gang));
   if (raiding !== 1) {
-    send('hood|' + JSON.stringify([sales]));
+    send('hood|' + JSON.stringify([floor]));
   }
 }
 
@@ -82,7 +82,7 @@ h.onmessage = function(message, user) {
   }
   if (spec[0] == 'hood') {
     let info = JSON.parse(spec[1]);
-    sales = info[0];
+    floor = info[0];
     redraw = true;
   }
 
