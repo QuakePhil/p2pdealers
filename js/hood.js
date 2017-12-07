@@ -3,12 +3,13 @@ var rooms = 5; // rooms per floor
 var sales = new Array(floors * rooms);
 
 function purchase(what, price) {
-  if (cash >= price) {
+  if (gang.cash >= price) {
     if (confirm('$' + price + ': ' + what)) {
       gangs[0].cash -= price;
-      cash -= price;
       return true;
     }
+  } else {
+    alert(what + ' You need $' + price);
   }
   return false;
 }
@@ -17,14 +18,16 @@ function hire(apt, e) {
   // is e.button more common?
 
   if (!sales[apt] && purchase('Sell from #' + apt + ' ?', 100)) {
-    sendchat(name + ' is selling from #' + apt);
-    sales[apt] = colors;
-    send('hood|'+JSON.stringify([sales]));
+    sendchat(gang.name + ' is selling from #' + apt);
+    sales[apt] = gang.colors;
+    send('hood|' + JSON.stringify([sales]));
+    send('info|' + JSON.stringify(gang));
     ui();
-  } else if (sales[apt] && sales[apt] !== colors && purchase('Hire goons to knock ' + sales[apt] + ' out of #' + apt + ' ?', 100)) {
-    sendchat(name + ' hired goons on #' + apt);
-    sales[apt] = colors;
-    send('hood|'+JSON.stringify([sales]));
+  } else if (sales[apt] && sales[apt] !== gang.colors && purchase('Hire goons to knock ' + sales[apt] + ' out of #' + apt + ' ?', 100)) {
+    sendchat(gang.name + ' hired goons on #' + apt);
+    sales[apt] = gang.colors;
+    send('hood|' + JSON.stringify([sales]));
+    send('info|' + JSON.stringify(gang));
     ui();
   }
   e.preventDefault();

@@ -19,34 +19,34 @@ function startPeers() {
   let array = new Uint32Array(1);
   window.crypto.getRandomValues(array);
   raiding = 0;
-  id = array[0];
-  cash = 420;
-  if (name == '') name = gangname();
-  colors = document.getElementById('colors').value;
-  console.log('starting with:', id, colors);
-  h.open(id);
-  gangs.push({colors: colors, user: 0, name: name, cash: cash});
+  gang.id = array[0];
+  gang.cash = 420;
+  if (gang.name == '') gang.name = gangname();
+  gang.colors = document.getElementById('colors').value;
+  console.log('starting with:', gang);
+  h.open(gang.id);
+  gangs.push(gang);
   outro();
 }
 
 function connectPeers() {
-  colors = document.getElementById('colors').value;
-  id = prompt('Enter hood id');
-  if (!id) return;
+  gang.id = prompt('Enter hood id');
+  if (!gang.id) return;
   raiding = 1;
-  cash = 420;
-  if (name == '') name = gangname();
-  console.log('raiding with:', id);
-  h.connect(id);
-  gangs.push({user: 0, colors: colors, name: name, cash: cash});
+  gang.cash = 420;
+  if (gang.name == '') gang.name = gangname();
+  gang.colors = document.getElementById('colors').value;
+  console.log('raiding with:', gang);
+  h.connect(gang.id);
+  gangs.push(gang);
   outro();
 }
 
 h.onopen = function(user) {
   console.log('opened:', user);
-  gangs.push({user: user, colors: '', name: '', cash: 0});
+  gangs.push({user: user});
   ui();
-  send('info|' + colors + ':' + name + ':' + cash);
+  send('info|' + JSON.stringify(gang));
   if (raiding !== 1) {
     send('hood|' + JSON.stringify([sales]));
   }
@@ -66,15 +66,14 @@ h.onmessage = function(message, user) {
   spec = message.split('|', 2);
   console.log(spec);
   if (spec[0] == 'info') {
-    let info = spec[1].split(':');
+    spec[1] = JSON.parse(spec[1]);
     for (var i in gangs) if(gangs[i].user == user) {
-      gangs[i].colors = info[0];
-      gangs[i].name = info[1];
-      gangs[i].cash = info[2];
+      spec[1].user = user;
+      gangs[i] = spec[1];
       redraw = true;
     }
     console.log(gangs);
-    console.log('set colors for user', user, ' to ', spec[1]);
+    console.log('set info for user', user, ' to ', spec[1]);
   }
   if (spec[0] == 'say') {
     document.getElementById('chat').value += spec[1];

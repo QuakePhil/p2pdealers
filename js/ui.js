@@ -16,7 +16,7 @@ function sendchat(blah) {
 }
 
 function blahblah() {
-  let blah = name + ': ' + document.getElementById('message').value;
+  let blah = gang.name + ': ' + document.getElementById('message').value;
   sendchat(blah);
   document.getElementById('message').value = '';
 }
@@ -62,12 +62,12 @@ function ui() {
   }
 
   let button = dce('button');
-  button.appendChild(dct(name));
+  button.appendChild(dct(gang.name));
   button.addEventListener('click', updatename, false);
 
   dom.appendChild(button);
   dom.appendChild(dce('br'));
-  dom.appendChild(document.createTextNode('Hood id: ' + id));
+  dom.appendChild(document.createTextNode('Hood id: ' + gang.id));
   dom.appendChild(players);
   dom.appendChild(chat());
 

@@ -8,13 +8,13 @@ function gangname() {
 }
 
 function updatename() {
-  if (!name) name = gangname();
-  let newname = prompt('New Gang Name', name);
+  if (!gang.name) gang.name = gangname();
+  let newname = prompt('New Gang Name', gang.name);
   if (newname) {
-    name = newname;
+    gang.name = newname;
     if (gangs.length > 0) {
-      gangs[0].name = name;
-      send('info|'+colors+':'+name+':'+cash);
+      gangs[0].name = gang.name;
+      send('info|'+JSON.stringify(gang));
       ui();
     }
   }
