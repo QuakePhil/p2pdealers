@@ -1,3 +1,5 @@
+var backlog = 'Welcome to O.G. Chat 1.0\n';
+
 function dce(what) {
   return document.createElement(what);
 }
@@ -6,10 +8,16 @@ function dct(what) {
   return document.createTextNode(what);
 }
 
-function blahblah() {
-  let blah = name + ': ' + document.getElementById('message').value + '\n';
+function sendchat(blah) {
+  blah = blah + '\n';
   document.getElementById('chat').value += blah;
+  backlog += blah;
   send('say|' + blah);
+}
+
+function blahblah() {
+  let blah = name + ': ' + document.getElementById('message').value;
+  sendchat(blah);
   document.getElementById('message').value = '';
 }
 
@@ -30,6 +38,7 @@ function chat() {
   }, false);
 
   textarea.id = "chat";
+  textarea.value = backlog;
 
   div.appendChild(textarea);
   div.appendChild(dce('br'));
@@ -63,7 +72,5 @@ function ui() {
   dom.appendChild(chat());
 
   // hood
-  dom = document.getElementById('hood');
-  while (dom.firstChild) { dom.removeChild(dom.firstChild); }
-  dom.appendChild(hood());
+  hood();
 }

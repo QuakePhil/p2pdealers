@@ -23,6 +23,7 @@ button {
 .chat textarea {
   width: 200px;
   height: 400px;
+  font-size: small;
 }
 
 .chat input {

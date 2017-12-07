@@ -45,6 +45,7 @@ h.onopen = function(user) {
   gangs.push({colors: '', user: user, name: '', cash: 0});
   ui();
   send('info|' + colors + ':' + name + ':' + cash);
+  send('hood|' + JSON.stringify([sales]));
 }
 
 h.onleave = function(user) {
@@ -73,6 +74,12 @@ h.onmessage = function(message, user) {
   }
   if (spec[0] == 'say') {
     document.getElementById('chat').value += spec[1];
+    backlog += spec[1];
+  }
+  if (spec[0] == 'hood') {
+    let info = JSON.parse(spec[1]);
+    sales = info[0];
+    redraw = true;
   }
 
   if (redraw !== false) {
