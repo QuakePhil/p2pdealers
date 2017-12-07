@@ -18,6 +18,7 @@ function outro() {
 function startPeers() {
   let array = new Uint32Array(1);
   window.crypto.getRandomValues(array);
+  raiding = 0;
   id = array[0];
   cash = 420;
   if (name == '') name = gangname();
@@ -32,20 +33,23 @@ function connectPeers() {
   colors = document.getElementById('colors').value;
   id = prompt('Enter hood id');
   if (!id) return;
+  raiding = 1;
   cash = 420;
   if (name == '') name = gangname();
   console.log('raiding with:', id);
   h.connect(id);
-  gangs.push({colors: colors, user: 0, name: name, cash: cash});
+  gangs.push({user: 0, colors: colors, name: name, cash: cash});
   outro();
 }
 
 h.onopen = function(user) {
   console.log('opened:', user);
-  gangs.push({colors: '', user: user, name: '', cash: 0});
+  gangs.push({user: user, colors: '', name: '', cash: 0});
   ui();
   send('info|' + colors + ':' + name + ':' + cash);
-  send('hood|' + JSON.stringify([sales]));
+  if (raiding !== 1) {
+    send('hood|' + JSON.stringify([sales]));
+  }
 }
 
 h.onleave = function(user) {
