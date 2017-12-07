@@ -1,10 +1,17 @@
 # Question: Can we do peer to peer javascript?
 Looks like we can! (Although RTCDataChannel may need some handshaking server behind the scenes, need to refactor DataChannel.js)
 
+# Browsers where it works
+* Chrome
+
+# Browsers where it doesnt
+* IE
+* Chrome Ipad
+
 # Pull Requests are welcome!
-Need to add some sort of graphics?
-Better ui
-Better gameplay
+* Need to add some sort of graphics?
+* Better ui
+* Better gameplay
 
 # Current gameplay
 Since this is p2p javascript, we must realize that any player can live edit the code and "cheat" (get unlimited resources etc) very easily.
